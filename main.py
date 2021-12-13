@@ -1,4 +1,4 @@
-from src.parser import Recipe
+from src.recipe import Recipe
 
 
 def main():
