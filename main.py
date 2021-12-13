@@ -1,9 +1,10 @@
-from src.parser import parse_recipe_url
+from src.parser import Recipe
+
 
 def main():
     print('Please enter recipe URL:', end=' ')
     recipe_url = input()
-    recipe = parse_recipe_url(recipe_url)
+    recipe = Recipe(recipe_url=recipe_url)
     print(recipe)
 
 
