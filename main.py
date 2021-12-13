@@ -1,3 +1,5 @@
+import re
+
 from src.recipe import Recipe
 
 
@@ -5,7 +7,7 @@ def get_recipe_url() -> str:
     while True:
         print('Please enter recipe URL:', end=' ')
         recipe_url = input()
-        if 'allrecipes.com/recipe/' in recipe_url:
+        if re.search('allrecipes.com/recipe/[0-9]+/.+', recipe_url):
             return recipe_url
         print('Not a valid recipe URL.')
 
