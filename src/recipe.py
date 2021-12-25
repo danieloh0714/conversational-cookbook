@@ -66,23 +66,23 @@ class Recipe:
         }
 
     def __transform(self, line: str) -> str:
-        if self.variation == "":
-            return line
         ans = []
-        words = line.lower().split(" ")
-        for word in words:
-            if self.variation == "chinese":
-                if word in to_chinese:
-                    ans.append(to_chinese[word])
-                else:
-                    ans.append(to_chinese_utensils.get(word, word))
-            elif self.variation == "healthy":
-                ans.append(to_healthy.get(word, word))
-            elif self.variation == "unhealthy":
-                ans.append(to_unhealthy.get(word, word))
-            elif self.variation == "vegan":
-                ans.append(to_vegan.get(word, word))
-            elif self.variation == "vegetarian":
-                ans.append(to_vegetarian.get(word, word))
+        for word in line.lower().split(" "):
+            match self.variation:
+                case "chinese":
+                    if word in to_chinese:
+                        ans.append(to_chinese[word])
+                    else:
+                        ans.append(to_chinese_utensils.get(word, word))
+                case "healthy":
+                    ans.append(to_healthy.get(word, word))
+                case "unhealthy":
+                    ans.append(to_unhealthy.get(word, word))
+                case "vegan":
+                    ans.append(to_vegan.get(word, word))
+                case "vegetarian":
+                    ans.append(to_vegetarian.get(word, word))
+                case _:
+                    ans.append(word)
 
         return " ".join(ans)

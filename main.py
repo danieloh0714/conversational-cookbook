@@ -65,7 +65,6 @@ def main() -> None:
             return
 
         variation = get_variation()
-        print(f"You have selected {variation}")
         print("\n")
 
         print(f"Here is your {variation} recipe!")
