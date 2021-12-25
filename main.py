@@ -4,6 +4,9 @@ from src.recipe import Recipe
 from src.utils import is_valid_number
 
 
+VARIATIONS = {"chinese", "healthy", "unhealthy", "vegan", "vegetarian"}
+
+
 def get_recipe_url() -> str:
     while True:
         print("Please enter recipe URL:", end=" ")
@@ -24,11 +27,45 @@ def get_servings() -> float:
         servings = ""
 
 
+def get_variation_request() -> bool:
+    while True:
+        print("Would you like a recipe variation? (y/n):", end=" ")
+        variation = input().lower()
+        if variation == "n": return False
+        if variation == "y": return True
+        print("Please enter y/n.")
+        variation = ""
+
+
+def get_variation() -> str:
+    print(f"We offer several recipe variations: {VARIATIONS}")
+    while True:
+        print("Please enter your desired variation:", end=" ")
+        variation = input().lower()
+        if variation in VARIATIONS:
+            return variation
+        print("Not a valid variation.")
+        variation = ""
+
+
 def main() -> None:
     recipe_url = get_recipe_url()
     servings = get_servings()
     recipe = Recipe(recipe_url=recipe_url, servings=servings)
     print(f"\n{recipe}")
+    print('\n')
+
+    variation_request = get_variation_request()
+    print('\n')
+    if not variation_request:
+        print("Have a great day!")
+        return
+
+    variation = get_variation()
+    print(f"You have selected {variation}")
+    print('\n')
+
+    print("Please hold...")
 
 
 if __name__ == "__main__":
