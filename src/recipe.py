@@ -34,20 +34,22 @@ class Recipe:
         req = requests.get(recipe_url)
         soup = BeautifulSoup(req.content, "html.parser")
 
-        title = soup.find("h1", class_="headline").getText()
-        self.title = title
+        self.title = soup.find("h1", class_="headline").getText()
 
         overview_divs = soup.find_all("div", class_="recipe-meta-item-header")
-        overview = {
-            el.getText()[:-1]: el.next_sibling.next_sibling.getText()[:-1]
-            for el in overview_divs
-        }
-        self.overview = overview
+        for el in overview_divs:
+            key = el.getText()[:-1].lower()
+            val = el.next_sibling.next_sibling.getText()[:-1]
+            if "serving" in key or "yield" in key:
+                val = scale_numbers(val, self.servings)
+            self.overview[key] = val
 
         ingredient_divs = soup.find_all("span", class_="ingredients-item-name")
-        ingredients = [el.getText() for el in ingredient_divs]
-        self.ingredients = [scale_numbers(line, self.servings) for line in ingredients]
+        self.ingredients = [
+            scale_numbers(el.getText(), self.servings) for el in ingredient_divs
+        ]
 
         instructions_divs = soup.find("ul", class_="instructions-section").find_all("p")
-        instructions = {i + 1: el.getText() for i, el in enumerate(instructions_divs)}
-        self.instructions = instructions
+        self.instructions = {
+            i + 1: el.getText() for i, el in enumerate(instructions_divs)
+        }

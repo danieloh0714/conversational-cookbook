@@ -2,7 +2,7 @@ from unicodedata import numeric
 
 
 def is_valid_number(s: str) -> bool:
-    return s.replace('.', '', 1).isdigit()
+    return s.replace(".", "", 1).isdigit()
 
 
 def unicode_to_float(s: str) -> float:
