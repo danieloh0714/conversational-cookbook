@@ -420,6 +420,7 @@ to_vegan = {
     "turkey": "tofurky",
     "fish": "soy",
     "crab": "tofu",
+    "ham": "veggie burger",
 }
 
 to_vegetarian = {
@@ -478,4 +479,5 @@ to_vegetarian = {
     "gelatin": "agar flakes",
     "fish": "soy",
     "crab": "tofu",
+    "ham": "veggie burger",
 }

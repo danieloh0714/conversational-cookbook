@@ -31,8 +31,10 @@ def get_variation_request() -> bool:
     while True:
         print("Would you like a recipe variation? (y/n):", end=" ")
         variation = input().lower()
-        if variation == "n": return False
-        if variation == "y": return True
+        if variation == "n":
+            return False
+        if variation == "y":
+            return True
         print("Please enter y/n.")
         variation = ""
 
@@ -53,19 +55,25 @@ def main() -> None:
     servings = get_servings()
     recipe = Recipe(recipe_url=recipe_url, servings=servings)
     print(f"\n{recipe}")
-    print('\n')
+    print("\n")
 
-    variation_request = get_variation_request()
-    print('\n')
-    if not variation_request:
-        print("Have a great day!")
-        return
+    while True:
+        variation_request = get_variation_request()
+        print("\n")
+        if not variation_request:
+            print("Have a great day!")
+            return
 
-    variation = get_variation()
-    print(f"You have selected {variation}")
-    print('\n')
+        variation = get_variation()
+        print(f"You have selected {variation}")
+        print("\n")
 
-    print("Please hold...")
+        print(f"Here is your {variation} recipe!")
+        recipe_variation = Recipe(
+            recipe_url=recipe_url, servings=servings, variation=variation
+        )
+        print(f"\n{recipe_variation}")
+        print("\n")
 
 
 if __name__ == "__main__":
