@@ -5,11 +5,12 @@ from .utils import scale_numbers
 
 
 class Recipe:
-    def __init__(self, recipe_url: str):
+    def __init__(self, recipe_url: str, servings: float):
         self.title = ""
         self.overview = dict()
         self.ingredients = []
         self.instructions = dict()
+        self.servings = servings
         self.parse_recipe_url(recipe_url)
 
     def __str__(self) -> str:
@@ -45,7 +46,7 @@ class Recipe:
 
         ingredient_divs = soup.find_all("span", class_="ingredients-item-name")
         ingredients = [el.getText() for el in ingredient_divs]
-        self.ingredients = [scale_numbers(line, 1) for line in ingredients]
+        self.ingredients = [scale_numbers(line, self.servings) for line in ingredients]
 
         instructions_divs = soup.find("ul", class_="instructions-section").find_all("p")
         instructions = {i + 1: el.getText() for i, el in enumerate(instructions_divs)}

@@ -1,6 +1,7 @@
 import re
 
 from src.recipe import Recipe
+from src.utils import is_valid_number
 
 
 def get_recipe_url() -> str:
@@ -10,12 +11,23 @@ def get_recipe_url() -> str:
         if re.search("allrecipes.com/recipe/[0-9]+/.+", recipe_url):
             return recipe_url
         print("Not a valid recipe URL.")
-        recipe = ""
+        recipe_url = ""
+
+
+def get_servings() -> float:
+    while True:
+        print("Please enter the number of servings you want:", end=" ")
+        servings = input()
+        if is_valid_number(servings):
+            return float(servings)
+        print("Not a valid number.")
+        servings = ""
 
 
 def main() -> None:
     recipe_url = get_recipe_url()
-    recipe = Recipe(recipe_url=recipe_url)
+    servings = get_servings()
+    recipe = Recipe(recipe_url=recipe_url, servings=servings)
     print(f"\n{recipe}")
 
 
