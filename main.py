@@ -10,9 +10,10 @@ def get_recipe_url() -> str:
         if re.search("allrecipes.com/recipe/[0-9]+/.+", recipe_url):
             return recipe_url
         print("Not a valid recipe URL.")
+        recipe = ""
 
 
-def main():
+def main() -> None:
     recipe_url = get_recipe_url()
     recipe = Recipe(recipe_url=recipe_url)
     print(f"\n{recipe}")
